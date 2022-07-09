@@ -1,15 +1,15 @@
 package com.example.moneyexample.domain.vo
 
-open class Money(
+data class Money(
     private val amount: Int,
     val currency: Currency,
 ) {
     companion object {
         fun ofDollar(amount: Int): Money {
-            return Dollar(amount)
+            return Money(amount, Currency.USD)
         }
         fun ofFranc(amount: Int): Money {
-            return Franc(amount)
+            return Money(amount, Currency.CHF)
         }
     }
 

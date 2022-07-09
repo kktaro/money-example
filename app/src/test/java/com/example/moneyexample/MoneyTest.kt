@@ -1,8 +1,6 @@
 package com.example.moneyexample
 
 import com.example.moneyexample.domain.vo.Currency
-import com.example.moneyexample.domain.vo.Dollar
-import com.example.moneyexample.domain.vo.Franc
 import com.example.moneyexample.domain.vo.Money
 import org.junit.Test
 
@@ -21,7 +19,7 @@ class MoneyTest {
     }
     @Test
     fun DollarとFrancの比較() {
-        assert(!Dollar(5).equals(Franc(5)))
+        assert(Money.ofDollar(5) != Money.ofFranc(5))
     }
     @Test
     fun 通貨テスト() {
