@@ -1,16 +1,19 @@
 package com.example.moneyexample.domain.vo
 
-abstract class Money(
-    val amount: Int,
+open class Money(
+    private val amount: Int,
+    val currency: Currency,
 ) {
     companion object {
-        fun dollar(amount: Int): Money {
+        fun ofDollar(amount: Int): Money {
             return Dollar(amount)
         }
-        fun franc(amount: Int): Money {
+        fun ofFranc(amount: Int): Money {
             return Franc(amount)
         }
     }
 
-    abstract fun times(multiplier: Int): Money
+    fun times(multiplier: Int): Money {
+        return Money(amount * multiplier, this.currency)
+    }
 }
