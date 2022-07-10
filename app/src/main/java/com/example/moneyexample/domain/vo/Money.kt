@@ -1,5 +1,7 @@
 package com.example.moneyexample.domain.vo
 
+import com.example.moneyexample.domain.worker.Bank
+
 data class Money(
     val amount: Int,
     val currency: Currency,
@@ -13,15 +15,19 @@ data class Money(
         }
     }
 
-    fun plus(addend: Money): Sum {
+    fun plus(addend: Money): Money {
+        return Money(amount + addend.amount, currency)
+    }
+
+    override fun plus(addend: Expression): Expression {
         return Sum(this, addend)
     }
 
-    fun times(multiplier: Int): Money {
+    override fun times(multiplier: Int): Expression {
         return Money(amount * multiplier, this.currency)
     }
 
-    override fun reduce(to: Currency): Money {
-        return this
+    override fun reduce(bank: Bank, to: Currency): Money {
+        return Money(amount / bank.getRate(currency, to), to)
     }
 }
