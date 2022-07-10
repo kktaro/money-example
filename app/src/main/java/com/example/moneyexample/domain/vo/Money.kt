@@ -1,9 +1,9 @@
 package com.example.moneyexample.domain.vo
 
 data class Money(
-    private val amount: Int,
+    val amount: Int,
     val currency: Currency,
-) {
+) : Expression {
     companion object {
         fun ofDollar(amount: Int): Money {
             return Money(amount, Currency.USD)
@@ -13,7 +13,15 @@ data class Money(
         }
     }
 
+    fun plus(addend: Money): Sum {
+        return Sum(this, addend)
+    }
+
     fun times(multiplier: Int): Money {
         return Money(amount * multiplier, this.currency)
+    }
+
+    override fun reduce(to: Currency): Money {
+        return this
     }
 }
